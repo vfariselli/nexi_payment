@@ -1,7 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:nexi_payment/models/environment_utils.dart';
+
 import 'models/api_front_office_qp_request.dart';
 
 class NexiPayment {
@@ -28,6 +30,17 @@ class NexiPayment {
     await _initXPay(secretKey, environment);
     ApiFrontOfficeQPRequest request =
         new ApiFrontOfficeQPRequest(alias, codTrans, currency, amount);
+    var res =
+        await _channel.invokeMethod("xPayFrontOfficePaga", request.toMap());
+    return res;
+  }
+
+  Future<String> xPayFrontOfficePagaExtended(String alias, String codTrans,
+      String currency, int amount, Map<String, String> extraParameters) async {
+    await _initXPay(secretKey, environment);
+    ApiFrontOfficeQPRequest request =
+        new ApiFrontOfficeQPRequest(alias, codTrans, currency, amount);
+    request.extraKeys = extraParameters;
     var res =
         await _channel.invokeMethod("xPayFrontOfficePaga", request.toMap());
     return res;
