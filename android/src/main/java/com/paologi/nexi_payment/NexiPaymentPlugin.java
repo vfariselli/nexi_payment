@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 import io.flutter.Log;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -143,6 +144,14 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
               call.argument("codTrans").toString(),
               call.argument("currency").toString(),
               call.argument("amount") != null ? ((Integer)call.argument("amount")).longValue() : 0);
+      if(call.argument("extraKeys")!= null){
+        Log.i(TAG, "extraKeys--------------");
+        Map<String, String> extraKeys = call.argument("extraKeys");
+        for (Map.Entry<String, String> pair : extraKeys.entrySet()) {
+          Log.i(TAG, pair.getKey() + " - " + pair.getValue());
+          apiFrontOfficeQPRequest.addExtraKey(pair.getKey(),pair.getValue());
+        }
+      }
     } catch (UnsupportedEncodingException | MacException e) {
       e.printStackTrace();
     }
