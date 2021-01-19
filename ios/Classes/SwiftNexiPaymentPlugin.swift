@@ -59,12 +59,19 @@ public class SwiftNexiPaymentPlugin: NSObject, FlutterPlugin {
             let amount = myArgs["amount"] as? Int {
 
 
-          let apiFrontOfficeQPRequest = ApiFrontOfficeQPRequest(alias: alias, codTrans: codTrans, currency: CurrencyUtilsQP.EUR, amount: amount)
-
+            let apiFrontOfficeQPRequest = ApiFrontOfficeQPRequest(alias: alias, codTrans: codTrans, currency: CurrencyUtilsQP.EUR, amount: amount);
+            
+            if let extraKeys = myArgs["extraKeys"] as? [String: String]{
+            print(">>extraKeys")
+                for (key, value) in extraKeys{
+                    print("\(key) - \(value)")
+                    apiFrontOfficeQPRequest.ExtraParameters[key] = value;
+                }
+            }
 
             xPay?._FrontOffice.paga(apiFrontOfficeQPRequest, navigation: true, parentController: rootViewController, completionHandler: { response in
                 self.handleFrontOffice(response, result: result)
-            })
+            });
 
         } else {
             result(FlutterError(code: "-1", message: "iOS could not extract " +
