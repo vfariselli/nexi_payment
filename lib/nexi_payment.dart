@@ -46,7 +46,11 @@ class NexiPayment {
   Future<String> xPayFrontOfficePagaExtended(
       String alias, String codTrans, String currency, int amount,
       {String domain, Map<String, String> extraParameters}) async {
-    await _initXPayWithDomain(secretKey, environment, domain);
+    if (domain != null) {
+      await _initXPayWithDomain(secretKey, environment, domain);
+    } else {
+      await _initXPay(secretKey, environment);
+    }
     ApiFrontOfficeQPRequest request =
         new ApiFrontOfficeQPRequest(alias, codTrans, currency, amount);
     request.extraKeys = extraParameters;

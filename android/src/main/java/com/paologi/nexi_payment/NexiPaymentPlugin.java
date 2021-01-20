@@ -69,7 +69,7 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
           xPay = new XPay(activity, secretKey);
 
-          String domain = (String) call.argument("environment");
+          String domain = (String) call.argument("domain");
           if(domain != null) {
             Log.i(TAG, "domain: " + domain);
             xPay.GestioneContratti.setDomain(domain);
