@@ -68,6 +68,12 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
           Log.i(TAG, "-----------------------activity:" + isNotNull + "--------------");
 
           xPay = new XPay(activity, secretKey);
+
+          String domain = (String) call.argument("environment");
+          if(domain != null) {
+            Log.i(TAG, "domain: " + domain);
+            xPay.GestioneContratti.setDomain(domain);
+          }
           xPay.FrontOffice.setEnvironment(
                   environment != null && environment.equals("PROD")
                   ? EnvironmentUtils.Environment.PROD

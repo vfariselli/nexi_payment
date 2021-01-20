@@ -24,6 +24,14 @@ class NexiPayment {
     return res;
   }
 
+  //Initialize XPay object with the activity
+  Future<String> _initXPayWithDomain(
+      String secretKey, String environment, String domain) async {
+    var res = await _channel.invokeMethod("initXPay",
+        {"secretKey": secretKey, "environment": environment, "domain": domain});
+    return res;
+  }
+
   //Makes the web view payment and awaits the response
   Future<String> xPayFrontOfficePaga(
       String alias, String codTrans, String currency, int amount) async {
@@ -35,9 +43,10 @@ class NexiPayment {
     return res;
   }
 
-  Future<String> xPayFrontOfficePagaExtended(String alias, String codTrans,
-      String currency, int amount, Map<String, String> extraParameters) async {
-    await _initXPay(secretKey, environment);
+  Future<String> xPayFrontOfficePagaExtended(
+      String alias, String codTrans, String currency, int amount,
+      {String domain, Map<String, String> extraParameters}) async {
+    await _initXPayWithDomain(secretKey, environment, domain);
     ApiFrontOfficeQPRequest request =
         new ApiFrontOfficeQPRequest(alias, codTrans, currency, amount);
     request.extraKeys = extraParameters;
