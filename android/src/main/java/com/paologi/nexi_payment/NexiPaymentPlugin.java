@@ -68,16 +68,16 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
           Log.i(TAG, "-----------------------activity:" + isNotNull + "--------------");
 
           xPay = new XPay(activity, secretKey);
-
+          xPay.FrontOffice.setEnvironment(
+                  environment != null && environment.equals("PROD")
+                  ? EnvironmentUtils.Environment.PROD
+                  : EnvironmentUtils.Environment.TEST);
           String domain = (String) call.argument("domain");
           if(domain != null) {
             Log.i(TAG, "domain: " + domain);
             xPay.GestioneContratti.setDomain(domain);
           }
-          xPay.FrontOffice.setEnvironment(
-                  environment != null && environment.equals("PROD")
-                  ? EnvironmentUtils.Environment.PROD
-                  : EnvironmentUtils.Environment.TEST);
+//          xPay.GestioneContratti.abilitaContratto();TODO
           Log.i(TAG,"XPay initialized");
           result.success("OK");
         } catch (DeviceRootedException e) {
@@ -106,7 +106,7 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
       @Override
       public void onConfirm(ApiFrontOfficeQPResponse apiFrontOfficeQPResponse) {
         if(apiFrontOfficeQPResponse.isValid()) {
-          result.success("OK");
+          result.success(apiFrontOfficeQPResponse);
           Log.i(TAG, "QP Payment successful with circuit card: " +apiFrontOfficeQPResponse.getBrand());
         } else {
           String message = "Auth Denied";
