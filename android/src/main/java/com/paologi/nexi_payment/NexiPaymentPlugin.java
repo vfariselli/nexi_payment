@@ -27,6 +27,7 @@ import it.nexi.xpay.Utils.EnvironmentUtils;
 import it.nexi.xpay.Utils.Exceptions.DeviceRootedException;
 import it.nexi.xpay.Utils.Exceptions.MacException;
 import it.nexi.xpay.XPay;
+import com.google.gson.Gson;
 
 /** NexiPaymentPlugin */
 public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -106,8 +107,11 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
       @Override
       public void onConfirm(ApiFrontOfficeQPResponse apiFrontOfficeQPResponse) {
         if(apiFrontOfficeQPResponse.isValid()) {
-          result.success(apiFrontOfficeQPResponse);
-          Log.i(TAG, "QP Payment successful with circuit card: " +apiFrontOfficeQPResponse.getBrand());
+          Gson gson = new Gson();
+          String json = gson.toJson(apiFrontOfficeQPResponse);
+
+          result.success("OK");
+          Log.i(TAG, "QP Payment successful: " + json);
         } else {
           String message = "Auth Denied";
           if (apiFrontOfficeQPResponse.getError() != null) {
