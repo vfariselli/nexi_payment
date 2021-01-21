@@ -77,7 +77,7 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
             Log.i(TAG, "domain: " + domain);
             xPay.GestioneContratti.setDomain(domain);
           }
-//          xPay.GestioneContratti.abilitaContratto();TODO
+          xPay.GestioneContratti.setTimeout(20000);
           Log.i(TAG,"XPay initialized");
           result.success("OK");
         } catch (DeviceRootedException e) {
@@ -131,7 +131,7 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
       }
     };
 
-    xPay.FrontOffice.paga(apiFrontOfficeQPRequest, true, callback);
+    xPay.FrontOffice.paga(apiFrontOfficeQPRequest, false, callback);
 
 
   }
