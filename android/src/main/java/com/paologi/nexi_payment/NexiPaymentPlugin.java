@@ -102,7 +102,7 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
     boolean isTest =  !(call.argument("environment") != null && call.argument("environment").equals("PROD"));
     ApiFrontOfficeQPRequest apiFrontOfficeQPRequest = getFrontOfficeRequest(call);
     Log.i(TAG,"ApiFrontOfficeQPRequest initialized");
-    xPay.FrontOffice.setEnvironment(isTest ? EnvironmentUtils.Environment.TEST : EnvironmentUtils.Environment.PROD);
+//    xPay.FrontOffice.setEnvironment(isTest ? EnvironmentUtils.Environment.TEST : EnvironmentUtils.Environment.PROD);
     FrontOfficeCallbackQP callback = new FrontOfficeCallbackQP() {
       @Override
       public void onConfirm(ApiFrontOfficeQPResponse apiFrontOfficeQPResponse) {
