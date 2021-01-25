@@ -69,16 +69,16 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
           Log.i(TAG, "-----------------------activity:" + isNotNull + "--------------");
 
           xPay = new XPay(activity, secretKey);
-//          xPay.FrontOffice.setEnvironment(
-//                  environment != null && environment.equals("PROD")
-//                  ? EnvironmentUtils.Environment.PROD
-//                  : EnvironmentUtils.Environment.TEST);
-//          String domain = (String) call.argument("domain");
-//          if(domain != null) {
-//            Log.i(TAG, "domain: " + domain);
-//            xPay.GestioneContratti.setDomain(domain);
-//          }
-//          xPay.GestioneContratti.setTimeout(20000);
+          xPay.FrontOffice.setEnvironment(
+                  environment != null && environment.equals("PROD")
+                  ? EnvironmentUtils.Environment.PROD
+                  : EnvironmentUtils.Environment.TEST);
+          String domain = (String) call.argument("domain");
+          if(domain != null) {
+            Log.i(TAG, "domain: " + domain);
+            xPay.GestioneContratti.setDomain(domain);
+          }
+          xPay.GestioneContratti.setTimeout(20000);
           Log.i(TAG,"XPay initialized");
           result.success("OK");
         } catch (DeviceRootedException e) {
