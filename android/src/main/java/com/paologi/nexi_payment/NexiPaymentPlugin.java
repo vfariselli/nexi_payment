@@ -110,7 +110,7 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
           Gson gson = new Gson();
           String json = gson.toJson(apiFrontOfficeQPResponse);
 
-          result.success(json);
+          result.success("OK");
           Log.i(TAG, "QP Payment successful: " + json);
         } else {
           String message = "Auth Denied";
@@ -138,7 +138,7 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
       }
     };
 
-    xPay.FrontOffice.paga(apiFrontOfficeQPRequest, false, callback);
+    xPay.FrontOffice.paga(apiFrontOfficeQPRequest, true, callback);
 
 
   }
