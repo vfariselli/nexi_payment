@@ -57,9 +57,9 @@ class TestPageState extends State<TestPage> {
   void _paga(String codTrans) async {
     var res = await _nexiPayment.xPayFrontOfficePagaExtended(
         "ALIAS_WEB_00026746", codTrans, CurrencyUtilsQP.EUR, 2500,
-//        domain: "https://int-ecommerce.nexi.it/ecomm/ecomm/DispatcherServlet",
         extraParameters: {
-          'urlpost': 'http://10.198.2.41:8081/ecweb/api/pagamenti/nexis2s',
+          'urlpost':
+              'https://demoweb.projectsrl.com/ecweb/api/pagamenti/nexis2s',
           'languageId': 'IT',
           'mail': 'sviluppo@projectsrl.com',
         });
